@@ -26,9 +26,19 @@ bwd/
 
 Note: It is necessary to have MATLAB's "Digital Signal Processing" and "Statistics and Machine Learning" and "Parallel Computing " Toolboxes installed within the MATLAB version you use to run this repository successfully.
 
-MKL repository content:
+MKL repository content
+"MKL" directory contains below scripts, functions, folder and files:
 
-   
+preproc_meg.m : 
+preproc_mri.m : 
+participants-imputed.tsv : 
+roi_extract.m : 
+mkl_class.m : 
+noise_sim.m : 
+main.m : 
+HarvardOxford-combo-maxprob-thr25-2mm.nii : 
+ctx_dist.csv : 
+supplementary : 
 
 Work in progress
 
