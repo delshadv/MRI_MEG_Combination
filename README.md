@@ -1,4 +1,4 @@
-# Github-MKL
+# MKL-project
 Combining MEG and MRI using Multiple Kernel Learning to classify MCI
 
 This repository contains all MATLAB scripts (and functions) including pre-processing, feature extraction and machine learning steps to reproduce results of paper ().
