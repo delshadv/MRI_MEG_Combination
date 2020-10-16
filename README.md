@@ -28,16 +28,16 @@ Note: You probably need MATLAB's "Parallel Computing" Toolbox to run many script
 
 "MKL" directory contains below scripts, functions, folder and files:
 
-preproc_meg.m : MEG preprocessing steps
-preproc_mri.m : MRI preprocessing steps (DARTEL-VBM)
-participants-imputed.tsv : Participants info
-roi_extract.m : Extract ROI data from image volume(s)
-mkl_class.m : The function for Multi Kernel Learning for Binary Classification 
-noise_sim.m : To reproduce supplementary results (Noise Simulation)
-main.m : Carries out permutation test for MCI vs Control classification problem to combine MEG - MRI
-HarvardOxford-combo-maxprob-thr25-2mm.nii : Harvard-Oxford atlas (116 ROIs)
-ctx_dist.csv :  A confound (cortex distance)
-supplementary : This directory includes all complementary function and scripts needed to run above codes
+preproc_meg.m : MEG preprocessing steps  
+preproc_mri.m : MRI preprocessing steps (DARTEL-VBM)  
+participants-imputed.tsv : Participants info  
+roi_extract.m : Extract ROI data from image volume(s)  
+mkl_class.m : The function for Multi Kernel Learning for Binary Classification  
+noise_sim.m : To reproduce supplementary results (Noise Simulation)  
+main.m : Carries out permutation test for MCI vs Control classification problem to combine MEG - MRI  
+HarvardOxford-combo-maxprob-thr25-2mm.nii : Harvard-Oxford atlas (116 ROIs)  
+ctx_dist.csv :  A confound (cortex distance)  
+supplementary : This directory includes all complementary function and scripts needed to run above codes  
 
 Work in progress
 
