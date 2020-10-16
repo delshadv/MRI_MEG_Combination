@@ -13,30 +13,24 @@
 % OSL and MKL directories as described in readme.md
 clear
 %restoredefaultpath
-bwd = pwd;
-wd  = fullfile(bwd,'MKL');
-addpath(wd)
-cd(wd)
+cd MKL
+addpath('supplementary'); 
 
-% Setup OSL
-addpath(fullfile(bwd,'osl','osl-core'))
-osl_startup
-osl_check_installation
-
-participants = spm_load(fullfile(wd,'participants-imputed.tsv'));
+participants = readtable('participants-imputed.tsv','FileType','text');
 mri_num      = grp2idx(participants.sImaging);
-Edu = normalize(participants.Edu_years); % Education years
+%Signal = normalize(participants.Edu_years); % Education years
+Signal = normalize(participants.MMSE); 
 
 % Remove noisy-MRIs and non-MRI subjects
 mri_num([23 197]) = 2;
-Edu(mri_num==2,:) = [];
+Signal(mri_num==2,:) = [];
 
 %% Noise simulation (part 1)
 % Import data and define input cell array
 
 load ('y.mat') % Classification labels, ie MCI vs CON
-titles = {'Noise','Edu','Noise,Edu','Noise+Edu'};
-%pos_titles = {'Noise,Edu>Noise','Noise,Edu>Edu','Noise,Edu>Noise+Edu'};
+titles = {'Noise','Signal','Noise,Signal','Noise+Signal'};
+%pos_titles = {'Noise,Signal>Noise','Noise,Signal>Signal','Noise,Signal>Noise+Signal'};
 %  define contrasts
 %   c = [-1 0 1 0;
 %       0 -1 1 0;
@@ -47,7 +41,7 @@ for n = [1 10 100 1000 10000] %number of noise element(s)
     V = cell(1,4);
     rng('default') % For reproducibility
     noise = randn(numel(y), n);
-    V = {{noise},{Edu},{Edu,noise},{[noise Edu]}};
+    V = {{noise},{Signal},{Signal,noise},{[noise Signal]}};
     
     % Classification step
     rng('default') % For reproducibility
