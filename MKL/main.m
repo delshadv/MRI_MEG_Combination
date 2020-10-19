@@ -51,7 +51,8 @@ acc = mkl_class(V,y,'machine','easy',...
 
 save MagGrd_VarCov acc
 
-titles = {'VAR:GRD','VAR:MAG','VAR:GRD,MAG','COV:GRD','COV:MAG','COV:GRD,MAG','VAR,COV:GRD','VAR,COV:MAG','VAR,COV:GRD,MAG'};
+%titles = {'VAR:GRD','VAR:MAG','VAR:GRD,MAG','COV:GRD','COV:MAG','COV:GRD,MAG','VAR,COV:GRD','VAR,COV:MAG','VAR,COV:GRD,MAG'};
+titles = {'VAR:MAG','VAR:GRD','VAR:GRD,MAG','COV:MAG','COV:GRD','COV:GRD,MAG','VAR,COV:MAG','VAR,COV:GRD','VAR,COV:GRD,MAG'};
 pos_titles = {'COV>VAR?','COV,VAR>COV?','GRD>MAG?','GRD,MAG>GRD?'};
 %  define contrasts
 c = [-1 1 0  -1 1 0  -1 1 0;    % COV > VAR
