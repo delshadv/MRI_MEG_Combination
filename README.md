@@ -24,7 +24,7 @@ bwd/
 
 ├── MKL/ . . .
 
-Note: You probably need MATLAB's "Parallel Computing" Toolbox to run many scripts within this repository faster.
+Note: You probably need MATLAB's "Parallel Computing" Toolbox to run the main codes within this repository faster.
 
 "MKL" directory contains below scripts, functions, folder and files:
 
