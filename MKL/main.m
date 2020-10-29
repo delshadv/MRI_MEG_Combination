@@ -160,5 +160,3 @@ sgtitle('GRD COV')
 
 eval(sprintf('print -f%d -dpng CofMRIMEG.png',f1))
 eval(sprintf('print -f%d -dpng CofMRIMEGMEGcon.png',f2))
-
-
