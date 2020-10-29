@@ -8,7 +8,7 @@
 % 
 % by Rik Henson and Delshad Vaghari, 2020
 
-% TO DO:    re-run on single broadband power
+% TO DO:    re-run on single broadband power % Done
 
 %% Define Path to needed functions
 
@@ -64,7 +64,7 @@ c = [-1 1 0  -1 1 0  -1 1 0;    % COV > VAR
     ];
     
 [f1,f2] = plot_results(titles,acc,pos_titles,c);
-sgt = sgtitle('MEG','Color',[0.9290 0.6940 0.1250],'FixedWidth'); 
+sgt = sgtitle('MEG'); 
 sgt.FontSize = 20;
 eval(sprintf('print -f%d -dpng MEG.png',f1))
 eval(sprintf('print -f%d -dpng MEGcon.png',f2))
