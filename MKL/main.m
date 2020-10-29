@@ -1,4 +1,4 @@
-c% Main Script:
+% Main Script:
 % This is the "main" script to reproduce results of "" published in ""
 % This script carries out permutation test for MCI vs Control classification
 % problem using combination of MEG - MRI  with Multi-Kernel Learning.
@@ -15,23 +15,25 @@ c% Main Script:
 % Assumed you are currently in the directory including BioFIND data,
 % OSL and MKL directories as described in readme.md
 bwd = pwd; % needs to be in Github directory
-cd MKL
-addpath(fullfile('supplementary')); % <- is in MKL directory, not bwd!
+addpath(fullfile(bwd,'MKL')); 
+addpath(fullfile(bwd,'MKL','supplementary'));
+cd MKL % to save variables in MKL dir
 
 %% Analysis 1 (Factorial comparison of MAG vs GRD and VAR vs COV)
 
+% Prepare input and output of the classifier
 clear
 modal = {'MEGMAG','MEGPLANAR'};
 V = {};
 for m = 1:length(modal)
     load([modal{m} '.mat'])
     X1 = [];
-    for f = 1:length(variance)
+    for f = 2:length(variance) % changed to 2 to bypass concatenation element
         X1 = [X1  variance{f}/std(variance{f}(:))];
     end
     V{end+1} = {X1};
     X2 = [];
-    for f = 1:length(covariance)
+    for f = 2:length(covariance) % changed to 2 to bypass concatenation element
         X2 = [X2  covariance{f}/std(covariance{f}(:))];
     end
     V{end+1} = {X2};
@@ -52,7 +54,7 @@ acc = mkl_class(V,y,'machine','easy',...
 save MagGrd_VarCov acc
 
 %titles = {'VAR:GRD','VAR:MAG','VAR:GRD,MAG','COV:GRD','COV:MAG','COV:GRD,MAG','VAR,COV:GRD','VAR,COV:MAG','VAR,COV:GRD,MAG'};
-titles = {'VAR:MAG','VAR:GRD','VAR:GRD,MAG','COV:MAG','COV:GRD','COV:GRD,MAG','VAR,COV:MAG','VAR,COV:GRD','VAR,COV:GRD,MAG'};
+titles = {'VAR:MAG','COV:MAG','VAR,COV:MAG','VAR:GRD','COV:GRD','VAR,COV:GRD','VAR:MAG,GRD','COV:MAG,GRD','VAR,COV:MAG,GRD'};
 pos_titles = {'COV>VAR?','COV,VAR>COV?','GRD>MAG?','GRD,MAG>GRD?'};
 %  define contrasts
 c = [-1 1 0  -1 1 0  -1 1 0;    % COV > VAR
@@ -60,12 +62,12 @@ c = [-1 1 0  -1 1 0  -1 1 0;    % COV > VAR
     -1 -1 -1  1 1 1   0 0 0;    % GRD > MAG
     0 0 0    -1 -1 -1  1 1 1;   % GRD,MAG > GRD
     ];
-[f1,f2] = plot_results(titles,acc,pos_titles,c)
-sgtitle('MEG')
-
+    
+[f1,f2] = plot_results(titles,acc,pos_titles,c);
+sgt = sgtitle('MEG','Color',[0.9290 0.6940 0.1250],'FixedWidth'); 
+sgt.FontSize = 20;
 eval(sprintf('print -f%d -dpng MEG.png',f1))
 eval(sprintf('print -f%d -dpng MEGcon.png',f2))
-
 
 %% Analysis 2 (Comparison of frequency bands using variance/covariance)
 
@@ -97,8 +99,8 @@ save FrqBnd_GrdCov acc
 %save FrqBnd_GrdVar acc
 
 % Plot resluts (Classification accuracy and Pos-hoc comparison)
-titles = {'\delta','\theta','\alpha','\beta','l\gamma','h\gamma','All'};
-pos_titles = {'\theta>\delta','\alpha>\theta','\beta>\alpha','l\gamma>\beta','h\gamma>l\gamma','all>h\gamma'};
+titles = {'Delta','Theta','Alpha','Beta','lGamma','hGamma','All'};
+pos_titles = {'Theta>Delta','Alpha>Theta','Beta>Alpha','lGamma>Beta','hGamma>lGamma','All>hGamma'};
 %  define contrasts
 c = [-1 1 0 0 0 0  0;
      0 -1 1 0 0 0  0;
@@ -121,7 +123,7 @@ participants = spm_load(fullfile(wd,'participants-imputed.tsv'));
 load ROIdata; load y; load MEGPLANAR; load cons;
 cof = cons;
 MRI = ROIdata;
-MEG = covariance{5}; % Since lgamma does best numerically
+MEG = covariance{6}; % Since lgamma does best numerically
 
 V = {{cof},{MRI},{MEG},...
     {cof,MRI},{cof,MEG},{MRI,MEG},...
