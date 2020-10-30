@@ -28,12 +28,12 @@ V = {};
 for m = 1:length(modal)
     load([modal{m} '.mat'])
     X1 = [];
-    for f = 2:length(variance) % changed to 2 to bypass concatenation element
+    for f = 2:length(variance) % changed to 2 to skip concatenation element
         X1 = [X1  variance{f}/std(variance{f}(:))];
     end
     V{end+1} = {X1};
     X2 = [];
-    for f = 2:length(covariance) % changed to 2 to bypass concatenation element
+    for f = 2:length(covariance) % changed to 2 to skip concatenation element
         X2 = [X2  covariance{f}/std(covariance{f}(:))];
     end
     V{end+1} = {X2};
@@ -75,11 +75,11 @@ clear
 % Import data and define input cell array
 load ('MEGPLANAR.mat'); % GRD
 load ('y.mat')
-Nband = numel(covariance)
+Nband = numel(covariance)-1;
 V = cell(1,Nband+1);
 V{Nband+1} = {[]};
 for k=1:Nband
-    V{k} = {covariance{k}};
+    V{k} = {covariance{k+1}};
     %V{k} = {variance{k}};
     if k==1
         V{Nband+1} = V{k};
@@ -110,14 +110,14 @@ c = [-1 1 0 0 0 0  0;
      0 0 0 0 0 -1  1
     ];
 [f1,f2] = plot_results(titles,acc,pos_titles,c);
-sgtitle('GRD COV')
+sgt = sgtitle('MEG: GRD COV'); 
+sgt.FontSize = 20;
 
 eval(sprintf('print -f%d -dpng FBands.png',f1))
 eval(sprintf('print -f%d -dpng FBandscon.png',f2))
 
 %% Analysis 3 (MEG-MRI combination)
 % Import data and define input cell array
-clear
 
 participants = spm_load(fullfile(wd,'participants-imputed.tsv'));
 load ROIdata; load y; load MEGPLANAR; load cons;
@@ -156,7 +156,7 @@ c = [-1 1 0  0 0 0  0;
     0 0 0   -1 0 0  1];
 
 [f1,f2] = plot_results(titles,acc,pos_titles,c)
-sgtitle('GRD COV')
-
+sgt = sgtitle('MEG-MRI'); 
+sgt.FontSize = 20;
 eval(sprintf('print -f%d -dpng CofMRIMEG.png',f1))
 eval(sprintf('print -f%d -dpng CofMRIMEGMEGcon.png',f2))
