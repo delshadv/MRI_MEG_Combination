@@ -216,7 +216,7 @@ end
 ctx_dist = csvread(fullfile(bwd,'MKL','ctx_dist.csv'));
 cons = [normalize(participants.age) normalize(participants.Move1) ...
     normalize(participants.Move2) normalize(participants.Recording_time) ...
-    participants.sex participants.site normalize(ctx_dist(:,2))];
+    participants.sex participants.site normalize(ctx_dist(:,2).^2)];
 cons(mri_num==2,:) = [];
 save(fullfile(bwd,'MKL','cons'),'cons')
 
