@@ -1,5 +1,5 @@
-# MKL-project
-Combining MEG and MRI using Multiple Kernel Learning to classify MCI
+# MRI_MEG_Combination
+Combining MEG and MRI  to classify MCI
 
 This repository contains all MATLAB codes including pre-processing, feature extraction and machine learning steps to reproduce results of paper ().
 The dataset used for this project is "BioFIND"; the largest MEG data to study dementia which is freely available from DPUK (). For more info about data please see ()
