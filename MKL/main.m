@@ -1,7 +1,7 @@
 % Main Script:
 % This is the "main" script to reproduce results of "" published in ""
 % This script carries out permutation test for MCI vs Control classification
-% problem using combination of MEG - MRI  with Multi-Kernel Learning.
+% problem using late combination of MEG - MRI.
 
 % You might need to use Parallel Computing Toolbox to be able to run MKL functions
 % in parallel for many repetitions to get more accurate results.
@@ -28,12 +28,12 @@ V = {};
 for m = 1:length(modal)
     load([modal{m} '.mat'])
     X1 = [];
-    for f = 2:length(variance) % changed to 2 to skip concatenation element
+    for f = 1:length(variance)
         X1 = [X1  variance{f}/std(variance{f}(:))];
     end
     V{end+1} = {X1};
     X2 = [];
-    for f = 2:length(covariance) % changed to 2 to skip concatenation element
+    for f = 1:length(covariance)
         X2 = [X2  covariance{f}/std(covariance{f}(:))];
     end
     V{end+1} = {X2};
