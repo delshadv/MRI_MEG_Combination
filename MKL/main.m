@@ -47,7 +47,7 @@ load ('y.mat') % Classification labels, ie MCI vs CON
 
 % Classification step
 rng('default') % For reproducibility
-acc = mkl_class(V,y,'machine','easy',...
+acc = mkl_class_ens(V,y,'machine','easy',...
     'hyper',1,'CVratio',[0.8 0.2],...
     'Nrun',1000,'PCA_cut',0,'norm',1);
 
@@ -75,12 +75,11 @@ clear
 % Import data and define input cell array
 load ('MEGPLANAR.mat'); % GRD
 load ('y.mat')
-Nband = numel(covariance)-1;
+Nband = numel(covariance);
 V = cell(1,Nband+1);
 V{Nband+1} = {[]};
 for k=1:Nband
-    V{k} = {covariance{k+1}};
-    %V{k} = {variance{k}};
+    V{k} = {variance{k}};
     if k==1
         V{Nband+1} = V{k};
     else
@@ -91,7 +90,7 @@ end
 
 % Classification step
 rng('default') % For reproducibility
-acc = mkl_class(V,y,'machine','easy',...
+acc = mkl_class_ens(V,y,'machine','easy',...
     'hyper',1,'CVratio',[0.8 0.2],...
     'Nrun',1000,'PCA_cut',0,'norm',1);
 
@@ -100,14 +99,14 @@ save FrqBnd_GrdCov acc
 
 % Plot resluts (Classification accuracy and Pos-hoc comparison)
 titles = {'Delta','Theta','Alpha','Beta','lGamma','hGamma','All'};
-pos_titles = {'Theta>Delta','Alpha>Theta','Beta>Alpha','lGamma>Beta','hGamma>lGamma','All>hGamma'};
+pos_titles = {'Theta>Delta','Alpha>Theta','Beta>Alpha','lGamma>Beta','hGamma>lGamma','All>lGamma'};
 %  define contrasts
 c = [-1 1 0 0 0 0  0;
      0 -1 1 0 0 0  0;
      0 0 -1 1 0 0  0;
      0 0 0 -1 1 0  0;
      0 0 0 0 -1 1  0;
-     0 0 0 0 0 -1  1
+     0 0 0 0 -1 0  1
     ];
 [f1,f2] = plot_results(titles,acc,pos_titles,c);
 sgt = sgtitle('MEG: GRD COV'); 
@@ -123,7 +122,7 @@ participants = spm_load(fullfile(wd,'participants-imputed.tsv'));
 load ROIdata; load y; load MEGPLANAR; load cons;
 cof = cons;
 MRI = ROIdata;
-MEG = covariance{6}; % Since lgamma does best numerically
+MEG = covariance{5}; % Since lgamma does best numerically
 
 V = {{cof},{MRI},{MEG},...
     {cof,MRI},{cof,MEG},{MRI,MEG},...
@@ -131,7 +130,7 @@ V = {{cof},{MRI},{MEG},...
 
 % Classification step
 rng('default') % For reproducibility
-acc = mkl_class(V,y,'machine','easy',...
+acc = mkl_class_ens(V,y,'machine','easy',...
     'hyper',1,'CVratio',[0.8 0.2],...
     'Nrun',1000,'PCA_cut',0,'norm',1);
 
