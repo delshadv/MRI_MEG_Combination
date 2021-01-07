@@ -160,12 +160,12 @@ sgt.FontSize = 20;
 eval(sprintf('print -f%d -dpng CofMRIMEG.png',f1))
 eval(sprintf('print -f%d -dpng CofMRIMEGMEGcon.png',f2))
 
-%% Analysis X (late vs MKL for single modality)
+%% Analysis X (late vs MKL vs early)
 % Import data and define input cell array
 
 load ROIdata; load y; load MEGPLANAR;
 MRI = ROIdata;
-MEG = covariance{6}; % Since lgamma does best numerically
+MEG = covariance{5};
 
 % Classification step
 
