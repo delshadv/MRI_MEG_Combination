@@ -58,3 +58,39 @@ for n = [1 1000] % Number of noise element(s)
     sgtitle(sprintf('n = %d', n))
     
 end
+
+%% Noise Simulation (new) - offered by Rik in the paper
+
+clear titles y V x acc f
+load ('y.mat') % Classification labels, ie MCI vs CON
+
+% Define titles
+titles = {'1 Noisy model (n=1)','1 Signal model (n=1)','1 Signal model (n=1) , 1000 Noisy models (n=1)','Noise (n=1000) + Signal (n=1) in single model'};
+%pos_titles = {'Noise,Signal>Noise','Noise,Signal>Signal','Noise,Signal>Noise+Signal'};
+%  define contrasts
+%   c = [-1 0 1 0;
+%       0 -1 1 0;
+%       0 0 1 -1];
+
+% Define input and output of classifier
+V = cell(1,4);
+rng(10) % For reproducibility
+x=cell(1,1001);
+x{1} = Signal;
+for k = 2:numel(x)
+    x{k} = randn(numel(y),1);
+end
+rng(10) % For reproducibility
+V = {{randn(numel(y),1)},{Signal},x,{[randn(numel(y),1000) Signal]}};
+
+% Classification step
+rng('default') % For reproducibility
+acc = mkl_class_ens(V,y,'machine','easy',...
+    'hyper',1,'CVratio',[0.8 0.2],...
+    'Nrun',1000,'PCA_cut',0,'norm',1);
+
+save noise acc
+% Plot resluts (Classification accuracy and Pos-hoc comparison)
+
+f = plot_results(titles,acc);
+eval(sprintf('print -f%d -dpng noise_sim_new.png',f))
