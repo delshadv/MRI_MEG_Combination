@@ -1,7 +1,7 @@
 % Step 1
 %% Pre-Processing of MEG data and defining confounds
 
-% Combining MEG and MRI using MKL to classify MCI vs Control
+% Combining MEG and MRI to classify MCI vs Control
 % (BioFIND dataset)
 %
 % This script contains MEG preprocessing steps for reproducing results of the
@@ -162,7 +162,7 @@ end
 
 %% PreProcess- Part 3 - Despiking and calculate covariance matrix
 
-freqbands = {[2 86],[2 4],[4 8],[8 12],[12 30],[30 48],[52 86]};
+freqbands = {[2 4],[4 8],[8 12],[12 30],[30 48],[52 86]};
 modal = {'MEGPLANAR','MEGMAG'};
 
 for k=1:numel(modal)
@@ -190,12 +190,6 @@ for k=1:numel(modal)
             % Filter to desired freq band
             y1 = ft_preproc_bandpassfilter(y0, D.fsample, freqbands{ii}, 4, 'but');
             
-            if ii == 1 % use notch filter for entire freq
-                 %[y1] = ft_preproc_dftfilter(y1, D.fsample); %default=50 Hz
-                 y1 = osl_filter(y1,-[48 52],'fs',D.fsample); % removes line noise using a notch filter
-                 
-            end
-            
             % Despiking
             y = filloutliers(y1','clip','median','ThresholdFactor',3);
             
@@ -222,7 +216,7 @@ end
 ctx_dist = csvread(fullfile(bwd,'MKL','ctx_dist.csv'));
 cons = [normalize(participants.age) normalize(participants.Move1) ...
     normalize(participants.Move2) normalize(participants.Recording_time) ...
-    participants.sex participants.site normalize(ctx_dist(:,2))];
+    participants.sex participants.site normalize(ctx_dist(:,2).^2)];
 cons(mri_num==2,:) = [];
 save(fullfile(bwd,'MKL','cons'),'cons')
 

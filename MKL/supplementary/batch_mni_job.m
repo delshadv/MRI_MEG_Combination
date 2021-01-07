@@ -9,5 +9,5 @@ matlabbatch{1}.spm.tools.dartel.mni_norm.data.subjs.images = {'<UNDEFINED>'};
 matlabbatch{1}.spm.tools.dartel.mni_norm.vox = [NaN NaN NaN];
 matlabbatch{1}.spm.tools.dartel.mni_norm.bb = [NaN NaN NaN
                                                NaN NaN NaN];
-matlabbatch{1}.spm.tools.dartel.mni_norm.preserve = 0;
-matlabbatch{1}.spm.tools.dartel.mni_norm.fwhm = [8 8 8];
+matlabbatch{1}.spm.tools.dartel.mni_norm.preserve = 1;
+matlabbatch{1}.spm.tools.dartel.mni_norm.fwhm = [1 1 1];

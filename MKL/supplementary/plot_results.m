@@ -1,6 +1,6 @@
 function [f1,f2] = plot_results(titles,Acc,pos_titles,c)
 
-N = size(Acc,1)
+N = size(Acc,1);
 
 if nargin==2
     if numel(titles) == size(Acc,2)
@@ -20,6 +20,8 @@ if nargin==2
         n = histcounts(a(:,k));
         histogram(a(:,k));
         title(titles{k})
+        axi = gca;
+        axi.FontSize = 12;
         line([50 50]',[0 max(n)]','Color','k','LineWidth',2)
     end
     
@@ -50,6 +52,8 @@ elseif nargin==4
         n = histcounts(a(:,k));
         histogram(a(:,k));
         title(titles{k})
+        axi = gca;
+        axi.FontSize = 12;
         line([50 50]',[0 max(n)]','Color','k','LineWidth',2)
     end
     
@@ -81,8 +85,10 @@ elseif nargin==4
     for k = 1 : size(ca,2)
         ax{k} = subplot(size(ca,2),1,k);
         n = histcounts(a(:,k));
-        histogram(ca(:,k));
+        histogram(ca(:,k),'FaceColor',[0.4660 0.6740 0.1880]);
         title(pos_titles{k})
+        axi = gca;
+        axi.FontSize = 12;
         line([0 0]',[0 max(n)]','Color','k','LineWidth',2)
     end
     
