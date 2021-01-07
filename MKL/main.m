@@ -118,15 +118,12 @@ eval(sprintf('print -f%d -dpng FBandscon.png',f2))
 %% Analysis 3 (MEG-MRI combination)
 % Import data and define input cell array
 
-participants = spm_load(fullfile(wd,'participants-imputed.tsv'));
 load ROIdata; load y; load MEGPLANAR; load cons;
-cof = cons;
 MRI = ROIdata;
-MEG = covariance{5}; % Since lgamma does best numerically
-
-V = {{cof},{MRI},{MEG},...
-    {cof,MRI},{cof,MEG},{MRI,MEG},...
-    {cof,MRI,MEG}};
+MEG = covariance{5}; 
+cons_cell = {cons(:,1),cons(:,2),cons(:,3),cons(:,4),cons(:,4),cons(:,6),cons(:,7)};
+V = {cons_cell,{MRI},{MEG},[cons_cell(:);MRI]',[cons_cell(:);{MEG}]',{MRI,MEG},...
+    [cons_cell(:);MRI;MEG]'};
 
 % Classification step
 rng('default') % For reproducibility
