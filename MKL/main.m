@@ -159,3 +159,53 @@ sgt = sgtitle('MEG-MRI');
 sgt.FontSize = 20;
 eval(sprintf('print -f%d -dpng CofMRIMEG.png',f1))
 eval(sprintf('print -f%d -dpng CofMRIMEGMEGcon.png',f2))
+
+%% Analysis X (late vs MKL for single modality)
+% Import data and define input cell array
+
+load ROIdata; load y; load MEGPLANAR;
+MRI = ROIdata;
+MEG = covariance{6}; % Since lgamma does best numerically
+
+% Classification step
+
+V = {{[MRI MEG]}}; % early combination
+
+rng('default') % For reproducibility
+acc = mkl_class(V,y,'machine','easy',...
+    'hyper',0.1,'CVratio',[0.8 0.2],...
+    'Nrun',1000,'PCA_cut',0,'norm',1);
+Acc = acc;
+
+V = {{MRI,MEG}}; % Intermediate combination
+
+rng('default') % For reproducibility
+acc = mkl_class(V,y,'machine','easy',...
+    'hyper',0.1,'CVratio',[0.8 0.2],...
+    'Nrun',1000,'PCA_cut',0,'norm',1);
+
+accuracy = cat(2,Acc,acc);
+
+rng('default') % For reproducibility
+acc = mkl_class_ens(V,y,'machine','easy',...
+    'hyper',1,'CVratio',[0.8 0.2],...
+    'Nrun',1000,'PCA_cut',0,'norm',1);
+accuracy = cat(2,accuracy,acc); % late combination
+
+save var_combins accuracy
+% Plot resluts (Classification accuracy and Pos-hoc comparison)
+
+% define titls in same order of the input cell V
+titles = {'MRI,MEG (Early Combination)','MRI,MEG (Intermediate Combination)','MRI,MEG (Late Combination)'};
+pos_titles = {'Intermediate Combination > Early Combination','Late Combination > Early Combination','Late Combination > Intermediate Combination'};
+
+%  define contrasts
+c = [-1 1 0 ; 
+     -1 0 1 ;
+     0 -1 1];
+
+[f1,f2] = plot_results(titles,accuracy,pos_titles,c);
+sgtitle('MEG MRI Combination')
+sgt.FontSize = 20;
+eval(sprintf('print -f%d -dpng EarlyInterLate.png',f1))
+eval(sprintf('print -f%d -dpng EarlyInterLate_diff.png',f2)
