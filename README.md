@@ -32,13 +32,13 @@ preproc_meg.m : MEG preprocessing steps
 preproc_mri.m : MRI preprocessing steps (DARTEL-VBM)  
 participants-imputed.tsv : Participants info  
 roi_extract.m : Extract ROI data from image volume(s)  
-mkl_class.m : The function for intermediate combination (Multi Kernel Learning) for Binary Classification  
-mkl_class_ens.m : The function for late combination for Binary Classification 
+mkl_ens.m : The function for late and intermediate combinations 
 noise_sim.m : To reproduce supplementary results (Noise Simulation)  
 main.m : Carries out permutation test for MCI vs Control classification problem to combine MEG - MRI  
 HarvardOxford-combo-maxprob-thr25-2mm.nii : Harvard-Oxford atlas (116 ROIs)  
 ctx_dist.csv :  Additional confound (mean distance from cortex to sensor)  
-supplementary : This directory includes all complementary function and scripts needed to run above codes  
+supplementary : This directory includes all complementary function and scripts needed to run above codes 
+derived : All csv files needed to reproduce results
 
 Work in progress
 
