@@ -214,11 +214,12 @@ end
 %% Define and save Confounds
 
 ctx_dist = csvread(fullfile(bwd,'MKL','ctx_dist.csv'));
-cons = [normalize(participants.age) normalize(participants.Move1) ...
+cofs = [normalize(participants.age) normalize(participants.Move1) ...
     normalize(participants.Move2) normalize(participants.Recording_time) ...
-    participants.sex participants.site normalize(ctx_dist(:,2).^2)];
+    normalize(participants.sex) normalize(participants.site) ...
+    normalize(ctx_dist(:,2).^2) normalize(participants.Edu_years)];
 cons(mri_num==2,:) = [];
-save(fullfile(bwd,'MKL','cons'),'cons')
+save(fullfile(bwd,'MKL','cofs'),'cofs')
 
 
 
