@@ -1,5 +1,5 @@
 function [acc1,acc2] = mkl_ens(V,y,varargin)
-% [acc1,acc2] = mkl_ens(V,y,machine,C,T,CVratio,Nrun,PCA_cut,norm)
+% [acc1,acc2] = mkl_ens(V,labels,machine,hyper1,hyper2,T,CVratio,Nrun,PCA_cut,norm)
 % Multi Kernel Learning for Binary Classification 
 %
 % ens = flag for whether to do second stage of late combination of kernels
@@ -18,9 +18,9 @@ function [acc1,acc2] = mkl_ens(V,y,varargin)
 % 'machine' : machine type, a string array ("pronto" for simpleMKL or
 % "easy" for easyMKL ), default: "easy"
 
-% 'Hyper1' : MKL C hyperparameter - penalty or regularization term, default: 0.1 for feature combination
+% 'Hyper1' : MKL lambda hyperparameter - penalty or regularization term, default: 0.1 for feature combination
 
-% 'Hyper2' : MKL C hyperparameter - penalty or regularization term, default: 1 for decision combination
+% 'Hyper2' : MKL lambda hyperparameter - penalty or regularization term, default: 1 for decision combination
 
 % 'T' : set threshold for feature selection based on MATLAB's rankfeature 
 %  function, default : None
@@ -49,8 +49,8 @@ if mod(nargin,2)==1
 end
 
 % Define default variables
-C1 = 0.1;
-C2 = 1;
+lambda1 = 0.1;
+lambda2 = 1;
 PCA_cut = 0;
 feat_norm = 1;
 CVratio = [0.8 0.2];
@@ -68,9 +68,9 @@ for k = 1:numel(names)
 %         case 'machine'
 %             machine = values{k};
         case 'Hyper1'
-            C1 = values{k};
+            lambda1 = values{k};
         case 'Hyper2'
-            C2 = values{k};
+            lambda2 = values{k};
         case 'PCA_cut'
             PCA_cut = values{k};
         case 'CVratio'
@@ -192,7 +192,7 @@ parfor rr = 1:Nrun
                 Ks_ts1(:,:,qq) = reshape(normalize(tmp(:),'range'),Ntest,Ntrain);            
                 
                 if ens
-                    easymkl_model = easymkl_train(Ks_tr1(:,:,qq), ytrain', C1, tracenorm);  
+                    easymkl_model = easymkl_train(Ks_tr1(:,:,qq), ytrain', lambda1, tracenorm);  
                     [~, score1]   = easymkl_predict(easymkl_model, Ks_tr1(:,:,qq));
                     [~, score2]   = easymkl_predict(easymkl_model, Ks_ts1(:,:,qq));
                     
@@ -204,12 +204,12 @@ parfor rr = 1:Nrun
                 end
             end
              
-            easymkl_model  = easymkl_train(Ks_tr1, ytrain', C2, tracenorm);
+            easymkl_model  = easymkl_train(Ks_tr1, ytrain', lambda1, tracenorm);
             [ts_pred, ~]   = easymkl_predict(easymkl_model, Ks_ts1);
             acc1{rr}(aa,f) = (sum(ts_pred==ytest)/length(ytest))*100;
             
             if ens
-                easymkl_model  = easymkl_train(Ks_tr2, ytrain', C2, tracenorm);
+                easymkl_model  = easymkl_train(Ks_tr2, ytrain', lambda2, tracenorm);
                 [ts_pred, ~]   = easymkl_predict(easymkl_model, Ks_ts2);
                 acc2{rr}(aa,f) = (sum(ts_pred==ytest)/length(ytest))*100;       
             end     
