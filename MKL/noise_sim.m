@@ -21,7 +21,7 @@ mri_num      = grp2idx(participants.sImaging);
 mri_num([23 197]) = 2;
 participants(mri_num==2,:) = [];
 
-X = [participants.MMSE  participants.Edu_years participants.age participants.sex]; 
+X = [participants.Edu_years participants.MMSE participants.age participants.sex]; 
 
 y = csvread('derived/labels.csv'); % (better name for file?) What about labels?
 
