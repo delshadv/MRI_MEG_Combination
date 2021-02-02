@@ -37,7 +37,7 @@ noise_sim.m : To reproduce supplementary results (Noise Simulation)
 main.m : Carries out permutation test for MCI vs Control classification problem to combine MEG - MRI  
 HarvardOxford-combo-maxprob-thr25-2mm.nii : Harvard-Oxford atlas (116 ROIs)  
 ctx_dist.csv :  Additional confound (mean distance from cortex to sensor)  
-supplementary : This directory includes all complementary function and scripts needed to run above codes 
+supplementary : This directory includes all complementary functions and scripts, needed to run above codes  
 derived : All csv files needed to reproduce results
 
 Work in progress
