@@ -36,7 +36,11 @@ function [acc1,acc2] = mkl_ens(V,y,varargin)
 % =================================================================================================================
 % Example : mciConAccuracy = mkl_class(V,y,'machine','easy','PCA_run',95,'Nrun',10)
 % =================================================================================================================
-% classification functions were taken from the PRONTO toolbox and EasyMKL MATLAB implementation by Okba Bekhelifi.
+% classification functions were taken from the EasyMKL MATLAB implementation by Okba Bekhelifi.
+% References:
+% [1] Fabio Aiolli and Michele Donini 
+%      EasyMKL: a scalable multiple kernel learning algorithm
+%      Paper @ http://www.math.unipd.it/~mdonini/publications.html
 % by Rik Henson, Delshad Vaghari Sep,2020
 % =================================================================================================================
 %% Interface
