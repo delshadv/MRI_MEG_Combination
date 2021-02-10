@@ -38,7 +38,13 @@ main.m : Carries out permutation test for MCI vs Control classification problem 
 HarvardOxford-combo-maxprob-thr25-2mm.nii : Harvard-Oxford atlas (116 ROIs)  
 ctx_dist.csv :  Additional confound (mean distance from cortex to sensor)  
 supplementary : This directory includes all complementary functions and scripts, needed to run above codes  
-derived : All csv files needed to reproduce results
+derived : All csv files needed to reproduce results  
+
+This code is for replicating experiment by paper titled "Late Combination shows that MEG adds to MRI in classifying MCI versus Control?"
+
+Cite this paper if you are using part of code:
+
+"Late Combination shows that MEG adds to MRI in classifying MCI versus Control?" will be specified later.  
 
 Work in progress
 
