@@ -1,8 +1,8 @@
 %% Supplementary results
-% Combining MEG and MRI using MKL to classify MCI vs Control
+% Late Combination shows that MEG adds to MRI in classifying MCI versus Controls
 % (BioFIND dataset)
 %
-% This script contains MEG preprocessing steps for reproducing results of the
+% This script contains noise simulation analyses in supplementary materials
 % paper ""
 
 % Henson R.N 2020, Vaghari D 2020
@@ -22,7 +22,6 @@ mri_num([23 197]) = 2;
 participants(mri_num==2,:) = [];
 
 X = [participants.MMSE  participants.Edu_years participants.age participants.sex]; 
-%X = [participants.Edu_years  participants.MMSE participants.age participants.sex]; 
 X = zscore(X);
 
 y = csvread('derived/labels.csv'); %
@@ -57,9 +56,6 @@ parfor p = 1:Np % Number of noise realisations
     V{4} = mat2cell([Signal(:,1) Noise],No,ones(1,1+Nnf));  % all separate kernels
     V{5} = mat2cell(Signal,No,ones(1,Nsf));
 
-   % Intermediate better when C1=1 than C1=0.1; Late better when C1=0.1 
-%   [acc1,~] = mkl_ens(V,y,'Hyper1',1,'CVratio',[0.8 0.2],'Nrun',1,'PCA_cut',0,'feat_norm',1,'ens',0);
-%  [~,acc2] = mkl_ens(V,y,'Hyper1',0.1,'Hyper2',1,'CVratio',[0.8 0.2],'Nrun',1,'PCA_cut',0,'feat_norm',1,'ens',1);
     [acc1,acc2] = mkl_ens(V,y,'Hyper1',0.1,'Hyper2',1,'CVratio',[0.8 0.2],'Nrun',1,'PCA_cut',0,'feat_norm',1,'ens',1);
     
     accuracy1{p} = mean(mean(acc1,3),1);
@@ -95,16 +91,4 @@ sgtitle(sprintf('Intermediate+Late, Nf = %d', Nnf))
 [f3] = plot_results(titles,accuracy1,titles,[-eye(5) eye(5)],[accuracy1 accuracy2]),
 sgtitle(sprintf('Late - Intermediate'))
 
-return
-
-% Or show same effect on independent dataset...
-% % Create 2 predictor example from Matlab's example data
-% fish = load('/hpc-software/matlab/r2019a/toolbox/stats/statsdemos/fisheriris.mat')
-% inds = ~strcmp(fish.species,'setosa');
-% X = fish.meas(inds,:); 
-% y = fish.species(inds);
-% y = grp2idx(y);
-% save('supplementary/fish_data','X','y')
-
-%load('supplementary/fish_data')
 
