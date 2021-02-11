@@ -210,12 +210,15 @@ parfor rr = 1:Nrun
              
             easymkl_model  = easymkl_train(Ks_tr1, ytrain', lambda1, tracenorm);
             [ts_pred, ~]   = easymkl_predict(easymkl_model, Ks_ts1);
-            acc1{rr}(aa,f) = (sum(ts_pred==ytest)/length(ytest))*100;
-            
+            %acc1{rr}(aa,f) = (sum(ts_pred==ytest)/length(ytest))*100;
+            acc1{rr}(aa,f) = ((sum(ts_pred==1 & ytest==1)/sum(ytest==1))+...
+                (sum(ts_pred==-1 & ytest==-1)/sum(ytest==-1)))/2*100;
             if ens
                 easymkl_model  = easymkl_train(Ks_tr2, ytrain', lambda2, tracenorm);
                 [ts_pred, ~]   = easymkl_predict(easymkl_model, Ks_ts2);
-                acc2{rr}(aa,f) = (sum(ts_pred==ytest)/length(ytest))*100;       
+                %acc2{rr}(aa,f) = (sum(ts_pred==ytest)/length(ytest))*100;
+                acc2{rr}(aa,f) =((sum(ts_pred==1 & ytest==1)/sum(ytest==1))+...
+                    (sum(ts_pred==-1 & ytest==-1)/sum(ytest==-1)))/2*100;
             end     
         end
     end
