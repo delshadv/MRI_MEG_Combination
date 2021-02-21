@@ -45,7 +45,6 @@ saveas(f3,'Supp Fig4.png')
 
 %% Classification accuracy for all MEG features
 
-clear
 load (fullfile(bwd,'MKL','derived','labels.csv')) % Classification labels, ie MCI vs CON
 tbl = table();
 tbl.bands = {'Delta(2-4Hz)';'Theta(4-8Hz)';'Alpha(8-12Hz)';'Beta(12-30Hz)';'Low-Gamma(30-48)';'High-Gamma(52-86)'};
