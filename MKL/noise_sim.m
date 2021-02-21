@@ -1,4 +1,4 @@
-%% Supplementary results
+%% Supplementary results 1
 % Late Combination shows that MEG adds to MRI in classifying MCI versus Controls
 % (BioFIND dataset)
 %
@@ -9,8 +9,8 @@
 
 %% Define Paths ands variables
 
-% Assumed you are currently in the directory including BioFIND data,
-cd MKL
+% Assumed you are in the MKL directory (see readme),
+%cd MKL
 addpath('supplementary'); 
  
 clear
@@ -24,7 +24,7 @@ participants(mri_num==2,:) = [];
 X = [participants.MMSE  participants.Edu_years participants.age participants.sex]; 
 X = zscore(X);
 
-y = csvread('derived/labels.csv'); %
+y = csvread(fullfile('derived','labels.csv'));
 
 No  = size(y,1) % Number of observations
 Nsf = size(X,2) % Number of signal features
