@@ -1,6 +1,6 @@
 
 % Step 2
-%% Pre-Processing of MRI data
+%% Pre-Processing and feature extraction of MRI data
 
 % Combining MEG and MRI using MKL to classify MCI vs Control
 % (BioFIND dataset)
