@@ -63,6 +63,7 @@ c = [-1 1 0  0 0 ;
 f1 = plot_results(titles,acc2(:,1:5,:),pos_titles,c); % main figure 1
 sgtitle('Late Combination')
 sgt.FontSize = 20;
+saveas(f1,'Fig1.png')
 %f2 = plot_results(titles,acc3(:,1:5,:),pos_titles,c); % Supplementary figure 3
 %sgtitle('Early Combination')
 %sgt.FontSize = 20;
@@ -93,3 +94,5 @@ c = [-1 1 0  0 0 0;
 f4 = plot_results(titles,accuracy(:,1:end-2,:),pos_titles,c,accuracy); % Main Figure 2
 sgtitle('Early vs Intermediate vs Late Combination')
 sgt.FontSize = 20;
+saveas(f4,'Fig2.png')
+
