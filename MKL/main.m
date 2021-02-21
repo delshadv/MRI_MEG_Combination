@@ -36,13 +36,13 @@ V = {COFS_cell,{MRI},{MEG},[COFS_cell(:);MRI]',[COFS_cell(:);{MEG}]',{MRI,MEG},.
 % Classification step
 rng('default') % For reproducibility
 [acc1,acc2] = mkl_ens(V,labels,'Hyper1',0.1,'Hyper2',1,...
-    'CVratio',[0.8 0.2],'Nrun',1000,'PCA_cut',0,'feat_norm',1,'ens',1);
+    'Nfold',5,'Nrun',1000,'PCA_cut',0,'feat_norm',1,'ens',1);
 
 clear V
 rng('default') % For reproducibility
 V = {{COFS},{MRI},{MEG},{[COFS MRI]},{[COFS MEG]},{[MRI MEG]},{[COFS MRI MEG]}};
 acc3 = mkl_ens(V,labels,'Hyper1',0.1,'Hyper2',1,...
-    'CVratio',[0.8 0.2],'Nrun',1000,'PCA_cut',0,'feat_norm',1,'ens',0);
+    'Nfold',5,'Nrun',1000,'PCA_cut',0,'feat_norm',1,'ens',0);
 
 save CofsMRIMEG_GrdCov acc1 acc2 acc3
 
