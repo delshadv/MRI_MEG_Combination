@@ -33,7 +33,8 @@ preproc_mri.m : MRI preprocessing steps (DARTEL-VBM)
 participants-imputed.tsv : Participants info  
 roi_extract.m : Extract ROI data from image volume(s)  
 mkl_ens.m : The function for late and intermediate combinations 
-noise_sim.m : To reproduce supplementary results (Noise Simulation)  
+noise_sim.m : To reproduce supplementary results (Noise Simulation;first part)   
+supp2.m : To reproduce supplementary results (second part)  
 main.m : Carries out permutation test for MCI vs Control classification problem to combine MEG - MRI  
 HarvardOxford-combo-maxprob-thr25-2mm.nii : Harvard-Oxford atlas (116 ROIs)  
 ctx_dist.csv :  Additional confound (mean distance from cortex to sensor)  
