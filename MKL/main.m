@@ -24,10 +24,10 @@ cd MKL % to save variables in MKL dir
 % Prepare input and output of the classifier
 %% Analysis 1 (Comparison of MRI vs MEG vs COFs through all possible combination methods)
 % Import data and define input cell array
-MRI = csvread('derived/ROIdata.csv');
-MEG = csvread('derived/GRDCOVGAMMA1.csv'); % Since lgamma does best numerically
-COFS = csvread('derived/COFS.csv');
-labels = csvread('derived/labels.csv');
+MRI = csvread(fullfile('derived','ROIdata.csv'));
+MEG = csvread(fullfile('derived','GRDCOVGAMMA1.csv')); % Since lgamma does best numerically
+COFS = csvread(fullfile('derived','COFS.csv'));
+labels = csvread(fullfile('derived','labels.csv'));
 
 COFS_cell = {COFS(:,1),COFS(:,2),COFS(:,3),COFS(:,4),COFS(:,4),COFS(:,6),COFS(:,7),COFS(:,8)};
 V = {COFS_cell,{MRI},{MEG},[COFS_cell(:);MRI]',[COFS_cell(:);{MEG}]',{MRI,MEG},...
