@@ -56,7 +56,7 @@ V = {{csvread('GRDCOVDELTA.csv')},{csvread('GRDCOVTHETA.csv')},{csvread('GRDCOVA
 % Classification step
 rng('default') % For reproducibility
 [~,acc2] = mkl_ens(V,labels,'Hyper1',0.1,'Hyper2',1,...
-    'CVratio',[0.8 0.2],'Nrun',1000,'PCA_cut',0,'feat_norm',1,'ens',1);
+    'Nfold',5,'Nrun',1000,'PCA_cut',0,'feat_norm',1,'ens',1);
 
 save MEG_GrdCov acc2
 tbl.COV_of_GRD = [mean(mean(acc2,3))' std(mean(acc2,3))'];
@@ -68,7 +68,7 @@ V = {{csvread('GRDVARDELTA.csv')},{csvread('GRDVARTHETA.csv')},{csvread('GRDVARA
 % Classification step
 rng('default') % For reproducibility
 [~,acc2] = mkl_ens(V,labels,'Hyper1',0.1,'Hyper2',1,...
-    'CVratio',[0.8 0.2],'Nrun',1000,'PCA_cut',0,'feat_norm',1,'ens',1);
+    'Nfold',5,'Nrun',1000,'PCA_cut',0,'feat_norm',1,'ens',1);
 
 save MEG_GrdVar acc2
 tbl.VAR_of_GRD = [mean(mean(acc2,3))' std(mean(acc2,3))'];
@@ -81,7 +81,7 @@ V = {{csvread('MAGCOVDELTA.csv')},{csvread('MAGCOVTHETA.csv')},{csvread('MAGCOVA
 % Classification step
 rng('default') % For reproducibility
 [~,acc2] = mkl_ens(V,labels,'Hyper1',0.1,'Hyper2',1,...
-    'CVratio',[0.8 0.2],'Nrun',1000,'PCA_cut',0,'feat_norm',1,'ens',1);
+    'Nfold',5,'Nrun',1000,'PCA_cut',0,'feat_norm',1,'ens',1);
 
 save MEG_MagCov acc2
 tbl.COV_of_MAG = [mean(mean(acc2,3))' std(mean(acc2,3))'];
@@ -94,7 +94,7 @@ V = {{csvread('MAGVARDELTA.csv')},{csvread('MAGVARTHETA.csv')},{csvread('MAGVARA
 % Classification step
 rng('default') % For reproducibility
 [~,acc2] = mkl_ens(V,labels,'Hyper1',0.1,'Hyper2',1,...
-    'CVratio',[0.8 0.2],'Nrun',1000,'PCA_cut',0,'feat_norm',1,'ens',1);
+    'Nfold',5,'Nrun',1000,'PCA_cut',0,'feat_norm',1,'ens',1);
 
 
 save MEG_MagVar acc2
@@ -131,7 +131,7 @@ load (fullfile(bwd,'MKL','derived','labels.csv')) % Classification labels, ie MC
 % Classification step
 rng('default') % For reproducibility
 [~,acc2] = mkl_ens(V,labels,'Hyper1',0.1,'Hyper2',1,...
-    'CVratio',[0.8 0.2],'Nrun',1000,'PCA_cut',0,'feat_norm',1,'ens',1);
+    'Nfold',5,'Nrun',1000,'PCA_cut',0,'feat_norm',1,'ens',1);
 
 save MagGrd_VarCov acc2
 
