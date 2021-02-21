@@ -1,5 +1,5 @@
 function [acc1,acc2] = mkl_ens(V,y,varargin)
-% [acc1,acc2] = mkl_ens(V,labels,machine,hyper1,hyper2,T,CVratio,Nrun,PCA_cut,norm)
+% [acc1,acc2] = mkl_ens(V,labels,machine,hyper1,hyper2,T,Nfold,Nrun,PCA_cut,norm)
 % Multi Kernel Learning for Binary Classification 
 %
 % ens = flag for whether to do second stage of late combination of kernels
@@ -25,7 +25,7 @@ function [acc1,acc2] = mkl_ens(V,y,varargin)
 % 'T' : set threshold for feature selection based on MATLAB's rankfeature 
 %  function, default : None
 
-% 'CVratio' : The Cross-Validation ratio, default : [0.8 0.2] ==> 5 Folds CV
+% 'Nfold' : The Cross-Validation folds, default : 5 Folds CV ==> [0.8 0.2] Cv ratio 
 
 % 'Nrun' : "r" repetition, default : 1000
 
@@ -57,7 +57,8 @@ lambda1 = 0.1;
 lambda2 = 1;
 PCA_cut = 0;
 feat_norm = 1;
-CVratio = [0.8 0.2];
+%CVratio = [0.8 0.2];
+Nfold = 5;
 Nrun = 1000;
 T = [];
 
@@ -67,7 +68,7 @@ values = varargin(2:2:end);
 
 for k = 1:numel(names)
 %    names{k} = validatestring(names{k},{'machine','PCA_cut','norm','Nrun','Hyper','T','CVratio'}); % to ignore typos
-    names{k} = validatestring(names{k},{'PCA_cut','feat_norm','Nrun','Hyper1','Hyper2','T','CVratio','ens'}); % to ignore typos
+    names{k} = validatestring(names{k},{'PCA_cut','feat_norm','Nrun','Hyper1','Hyper2','T','Nfold','ens'}); % to ignore typos
     switch names{k}
 %         case 'machine'
 %             machine = values{k};
@@ -77,8 +78,10 @@ for k = 1:numel(names)
             lambda2 = values{k};
         case 'PCA_cut'
             PCA_cut = values{k};
-        case 'CVratio'
-            CVratio = values{k}; % It is better to import KFolds instead
+%        case 'CVratio'
+%            CVratio = values{k}; % It is better to import KFolds instead ; Done
+        case 'Nfold'
+            Nfold = values{k};
         case 'feat_norm'
             feat_norm = values{k};
         case 'Nrun'
@@ -92,7 +95,8 @@ end
 
 %% Balanced Cross-Validation
 
-Nfold = round(1/CVratio(2));
+%Nfold = round(1/CVratio(2));
+CVratio = [(Nfold-1)/Nfold 1-((Nfold-1)/Nfold)];
 %rbf = @(X,Y) exp(-0.1 .* pdist2(X,Y, 'euclidean').^2); % RBF kernel
 
 for c = 1:2
