@@ -96,3 +96,58 @@ sgtitle('Early vs Intermediate vs Late Combination')
 sgt.FontSize = 20;
 saveas(f4,'Fig2.png')
 
+%% Analysis  (Other MEG - MRI combination)
+% Import data and define input cell array
+load (fullfile(bwd,'MKL','derived','labels.csv')) % Classification labels, ie MCI vs CON
+tbl = table();
+tbl.bands = {'Delta(2-4Hz)';'Theta(4-8Hz)';'Alpha(8-12Hz)';'Beta(12-30Hz)';'Low-Gamma(30-48)';'High-Gamma(52-86)'};
+
+MRI = csvread(fullfile(bwd,'MKL','derived','ROIdata.csv'));
+
+V = {{MRI},{MRI,csvread('GRDCOVDELTA.csv')},{MRI,csvread('GRDCOVTHETA.csv')},{MRI,csvread('GRDCOVALPHA.csv')}...
+    ,{MRI,csvread('GRDCOVBETA.csv')},{MRI,csvread('GRDCOVGAMMA1.csv')},{MRI,csvread('GRDCOVGAMMA2.csv')}};
+
+% Classification step
+rng('default') % For reproducibility
+[~,acc2] = mkl_ens(V,labels,'Hyper1',0.1,'Hyper2',1,...
+    'CVratio',[0.8 0.2],'Nrun',1000,'PCA_cut',0,'feat_norm',1,'ens',1);
+
+save MRIMEG_GrdCov acc2
+tbl.COV_of_GRD = [mean(mean(acc2(:,2:end,:),3))' std(mean(acc2(:,2:end,:),3))'];
+
+clear V
+V = {{MRI},{MRI,csvread('GRDVARDELTA.csv')},{MRI,csvread('GRDVARTHETA.csv')},{MRI,csvread('GRDVARALPHA.csv')}...
+    ,{MRI,csvread('GRDVARBETA.csv')},{MRI,csvread('GRDVARGAMMA1.csv')},{MRI,csvread('GRDVARGAMMA2.csv')}};
+
+% Classification step
+rng('default') % For reproducibility
+[~,acc2] = mkl_ens(V,labels,'Hyper1',0.1,'Hyper2',1,...
+    'CVratio',[0.8 0.2],'Nrun',1000,'PCA_cut',0,'feat_norm',1,'ens',1);
+
+save MRIMEG_GrdVar acc2
+% Plot resluts (Classification accuracy and Pos-hoc comparison)
+tbl.VAR_of_GRD = [mean(mean(acc2(:,2:end,:),3))' std(mean(acc2(:,2:end,:),3))'];
+
+clear V
+V = {{MRI},{MRI,csvread('MAGCOVDELTA.csv')},{MRI,csvread('MAGCOVTHETA.csv')},{MRI,csvread('MAGCOVALPHA.csv')}...
+    ,{MRI,csvread('MAGCOVBETA.csv')},{MRI,csvread('MAGCOVGAMMA1.csv')},{MRI,csvread('MAGCOVGAMMA2.csv')}};
+
+% Classification step
+rng('default') % For reproducibility
+[~,acc2] = mkl_ens(V,labels,'Hyper1',0.1,'Hyper2',1,...
+    'CVratio',[0.8 0.2],'Nrun',1000,'PCA_cut',0,'feat_norm',1,'ens',1);
+
+save MRIMEG_MagCov acc2
+tbl.COV_of_MAG = [mean(mean(acc2(:,2:end,:),3))' std(mean(acc2(:,2:end,:),3))'];
+
+clear V
+V = {{MRI},{MRI,csvread('MAGVARDELTA.csv')},{MRI,csvread('MAGVARTHETA.csv')},{MRI,csvread('MAGVARALPHA.csv')}...
+    ,{MRI,csvread('MAGVARBETA.csv')},{MRI,csvread('MAGVARGAMMA1.csv')},{MRI,csvread('MAGVARGAMMA2.csv')}};
+
+% Classification step
+rng('default') % For reproducibility
+[~,acc2] = mkl_ens(V,labels,'Hyper1',0.1,'Hyper2',1,...
+    'CVratio',[0.8 0.2],'Nrun',1000,'PCA_cut',0,'feat_norm',1,'ens',1);
+
+save MRIMEG_MagVar acc2
+tbl.VAR_of_MAG = [mean(mean(acc2(:,2:end,:),3))' std(mean(acc2(:,2:end,:),3))'] % table 2 of main paper
