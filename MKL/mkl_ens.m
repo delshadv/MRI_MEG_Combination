@@ -225,13 +225,15 @@ parfor rr = 1:Nrun
 end
 %toc;
 
-% Better way of doing below!?
-tmp1 = []; tmp2 = [];
-for rr = 1:Nrun
-    tmp1(rr,:,:) = acc1{rr};
-    tmp2(rr,:,:) = acc2{rr};
-end
-acc1 = tmp1; acc2 = tmp2;
+% Better way of doing below!? Yes, using permute
+%tmp1 = []; tmp2 = [];
+%for rr = 1:Nrun
+%    tmp1(rr,:,:) = acc1{rr};
+%    tmp2(rr,:,:) = acc2{rr};
+%end
+%acc1 = tmp1; acc2 = tmp2;
+acc1 = permute(cell2mat(permute(acc1,[3,2,1])),[3,1,2]);
+acc2 = permute(cell2mat(permute(acc2,[3,2,1])),[3,1,2]);
 
 end
 
