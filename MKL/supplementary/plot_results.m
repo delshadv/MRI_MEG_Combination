@@ -1,7 +1,7 @@
 function [f1] = plot_results(titles,Acc,pos_titles,c,Acc2)
 
 y_label = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o'};
-N = size(Acc,1);
+%N = size(Acc,1);
 
 if nargin==2
     if numel(titles) == size(Acc,2)
@@ -99,7 +99,7 @@ elseif nargin==4
     for k = 1 : size(ca,2)
         ax1{k} = subplot(size(ca,2),2,2*k);%,'position',ax{k}.Position);
         n = histcounts(a(:,k));
-        histogram(ca(:,k),'FaceColor',[0.4660 0.6740 0.1880]);
+        histogram(ca(:,k),'FaceColor',[0.4660 0.6740 0.1880],'NumBins',30,'BinWidth',1);
         ylabel(sprintf([y_label{k} num2str(2)]),'Rotation',0,...
             'fontweight','bold','fontsize',16);
         ytickangle(45);
@@ -181,7 +181,7 @@ elseif nargin==5
     for k = 1 : size(ca,2)
         ax1{k} = subplot(size(ca,2),2,2*k);%,'position',ax{k}.Position);
         n = histcounts(a(:,k));
-        histogram(ca(:,k),'FaceColor',[0.4660 0.6740 0.1880]);
+        histogram(ca(:,k),'FaceColor',[0.4660 0.6740 0.1880],'NumBins',30,'BinWidth',1);
         ylabel(sprintf([y_label{k} num2str(2)]),'Rotation',0,...
             'fontweight','bold','fontsize',16);
         ytickangle(45);
