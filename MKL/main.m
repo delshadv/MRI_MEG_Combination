@@ -20,9 +20,6 @@ addpath(fullfile(bwd,'MKL','derived'));
 cd MKL % to save variables in MKL dir
 
 %% Analysis 1 (Comparing Early vs Intermediate vs Late Combs)
-
-% Prepare input and output of the classifier
-%% Analysis 1 (Comparison of MRI vs MEG vs COFs through all possible combination methods)
 % Import data and define input cell array
 MRI = csvread(fullfile('derived','ROIdata.csv'));
 MEG = csvread(fullfile('derived','GRDCOVGAMMA1.csv')); % Since lgamma does best numerically
