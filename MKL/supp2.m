@@ -7,17 +7,15 @@
 
 % Henson R.N 2020, Vaghari D 2020
 
-%% Load necessary variables
+%% Define necessary paths
 
-% Assumed you are currently in the directory including BioFIND data,
-% OSL and MKL directories as described in readme.md
-bwd = pwd; % needs to be in Github directory
+bwd = pwd; % needs to be in MRI_MEG_combination directory
 addpath(fullfile(bwd,'MKL'));
 addpath(fullfile(bwd,'MKL','supplementary'));
 addpath(fullfile(bwd,'MKL','derived'));
 cd MKL
 %% Simple concatenation and Multiple kernel leraning
-load(fullfile(bwd,'MKL','CofsMRIMEG_GrdCov')) % needs to run analysis 1 in main.m
+load(fullfile(bwd,'MKL','CofsMRIMEG_GrdCov')) % needs to run first analysis 1 in main.m 
 
 titles = {'COF','MRI','MEG','MRI,COF','MEG,COF'};
 pos_titles = {'MRI>COF','MEG>COF','MEG>MRI',...
@@ -101,7 +99,7 @@ tbl.VAR_of_MAG = [mean(mean(acc2,3))' std(mean(acc2,3))']
 
 %% Analysis Supp. (Factorial comparison of MAG vs GRD and VAR vs COV)
 % Prepare Input and output for the classifier
-clear
+clear V
 modal = {'MEGMAG','MEGPLANAR'};
 load([modal{1} '.mat']) % Needs to run preproc_meg first
 
@@ -125,8 +123,6 @@ V{7} = {V{1}{1},V{4}{1}}; % VAR MAG,GRD
 V{8} = {V{2}{1},V{5}{1}}; % COV MAG,GRD
 V{9} = {V{1}{1},V{2}{1},V{4}{1},V{5}{1}}; % VAR,COV MAG,GRD
 
-load (fullfile(bwd,'MKL','derived','labels.csv')) % Classification labels, ie MCI vs CON
-
 % Classification step
 rng('default') % For reproducibility
 [~,acc2] = mkl_ens(V,labels,'Hyper1',0.1,'Hyper2',1,...
@@ -148,4 +144,4 @@ sgt = sgtitle('MEG');
 sgt.FontSize = 20;
 
 % Save Figures
-saveas(f,'Supp Fig4.png')
+saveas(f,'Supp Fig5.png')
