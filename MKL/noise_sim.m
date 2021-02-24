@@ -78,17 +78,22 @@ c   = [-1 1 0 0 0;
        0 1 0 -1 0;
        0 0 -1 1 0];
 %con_titles = {'Signal1>Noise','Signal1>Signal1,Noise','Signal1,Noise>Signal1+Noise'};
+% Plot resluts (Classification accuracy and Pos-hoc comparison)
 
- [f1] = plot_results(titles,accuracy1)%,con_titles,c)
- sgtitle(sprintf('Intermediate, Nf = %d', Nnf))
-% 
-[f2] = plot_results(titles,accuracy2,con_titles,c)
-sgtitle(sprintf('Late, Nf = %d', Nnf))
+titles = {'Noise','Signal1','Signal1+Noise','Signal1,Noise','Signal1,Signal2-4'};
+%  define contrasts
+c   = [-1 1 0 0 0;
+       0 1 0 -1 0;
+       0 0 -1 1 0];
+   
+[f1] = plot_results(titles,accuracy1)%,con_titles,c)
+sgtitle(sprintf('Intermediate, Nf = %d', Nnf)) % supp fig1 - left panel
 
-[f1] = plot_results(cat(2,titles,titles),[accuracy1 accuracy2],cat(2,titles,titles),[-eye(5) eye(5)])
-sgtitle(sprintf('Intermediate+Late, Nf = %d', Nnf))
-%[f1] = plot_results(cat(2,titles,titles),[accuracy1 accuracy2],cat(2,titles,titles),[-eye(5) eye(5)])
-[f3] = plot_results(titles,accuracy1,titles,[-eye(5) eye(5)],[accuracy1 accuracy2]),
-sgtitle(sprintf('Late - Intermediate'))
+[f2] = plot_results(titles,accuracy2)
+sgtitle(sprintf('Late, Nf = %d', Nnf)) % supp fig1 - right panel
+   
+[f3] = plot_results([],[],titles,[-eye(5) eye(5)],[accuracy1 accuracy2]) 
+sgtitle(sprintf('Late - Intermediate'))  % supp fig2 - right panel
+
 
 
