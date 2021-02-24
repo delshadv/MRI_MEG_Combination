@@ -1,7 +1,7 @@
 % Main Script:
 % This is the "main" script to reproduce results of "" published in ""
 % This script carries out permutation test for MCI vs Control classification
-% problem using late combination of MEG - MRI.
+% problem using late/intermediate/early combinations of MEG & MRI.
 
 % You might need to use Parallel Computing Toolbox to be able to run MKL functions
 % in parallel for many repetitions to get more accurate results.
@@ -10,9 +10,7 @@
 
 %% Define Path to needed functions
 
-% Assumed you are currently in the directory including BioFIND data,
-% OSL and MKL directories as described in readme.md
-bwd = pwd; % needs to be in Github directory
+bwd = pwd; % needs to be in "MRI_MEG_Combination" directory
 addpath(fullfile(bwd,'MKL')); 
 addpath(fullfile(bwd,'MKL','supplementary'));
 addpath(fullfile(bwd,'MKL','derived'));
@@ -95,19 +93,16 @@ saveas(f4,'Fig2.png')
 
 %% Analysis  (Other MEG - MRI combination)
 % Import data and define input cell array
-load (fullfile(bwd,'MKL','derived','labels.csv')) % Classification labels, ie MCI vs CON
+clear V
 tbl = table();
 tbl.bands = {'Delta(2-4Hz)';'Theta(4-8Hz)';'Alpha(8-12Hz)';'Beta(12-30Hz)';'Low-Gamma(30-48)';'High-Gamma(52-86)'};
-
-MRI = csvread(fullfile(bwd,'MKL','derived','ROIdata.csv'));
-
 V = {{MRI},{MRI,csvread('GRDCOVDELTA.csv')},{MRI,csvread('GRDCOVTHETA.csv')},{MRI,csvread('GRDCOVALPHA.csv')}...
     ,{MRI,csvread('GRDCOVBETA.csv')},{MRI,csvread('GRDCOVGAMMA1.csv')},{MRI,csvread('GRDCOVGAMMA2.csv')}};
 
 % Classification step
 rng('default') % For reproducibility
 [~,acc2] = mkl_ens(V,labels,'Hyper1',0.1,'Hyper2',1,...
-    'CVratio',[0.8 0.2],'Nrun',1000,'PCA_cut',0,'feat_norm',1,'ens',1);
+    'Nfold',5,'Nrun',1000,'PCA_cut',0,'feat_norm',1,'ens',1);
 
 save MRIMEG_GrdCov acc2
 tbl.COV_of_GRD = [mean(mean(acc2(:,2:end,:),3))' std(mean(acc2(:,2:end,:),3))'];
@@ -119,7 +114,7 @@ V = {{MRI},{MRI,csvread('GRDVARDELTA.csv')},{MRI,csvread('GRDVARTHETA.csv')},{MR
 % Classification step
 rng('default') % For reproducibility
 [~,acc2] = mkl_ens(V,labels,'Hyper1',0.1,'Hyper2',1,...
-    'CVratio',[0.8 0.2],'Nrun',1000,'PCA_cut',0,'feat_norm',1,'ens',1);
+    'Nfold',5,'Nrun',1000,'PCA_cut',0,'feat_norm',1,'ens',1);
 
 save MRIMEG_GrdVar acc2
 % Plot resluts (Classification accuracy and Pos-hoc comparison)
@@ -132,7 +127,7 @@ V = {{MRI},{MRI,csvread('MAGCOVDELTA.csv')},{MRI,csvread('MAGCOVTHETA.csv')},{MR
 % Classification step
 rng('default') % For reproducibility
 [~,acc2] = mkl_ens(V,labels,'Hyper1',0.1,'Hyper2',1,...
-    'CVratio',[0.8 0.2],'Nrun',1000,'PCA_cut',0,'feat_norm',1,'ens',1);
+    'Nfold',5,'Nrun',1000,'PCA_cut',0,'feat_norm',1,'ens',1);
 
 save MRIMEG_MagCov acc2
 tbl.COV_of_MAG = [mean(mean(acc2(:,2:end,:),3))' std(mean(acc2(:,2:end,:),3))'];
@@ -144,7 +139,7 @@ V = {{MRI},{MRI,csvread('MAGVARDELTA.csv')},{MRI,csvread('MAGVARTHETA.csv')},{MR
 % Classification step
 rng('default') % For reproducibility
 [~,acc2] = mkl_ens(V,labels,'Hyper1',0.1,'Hyper2',1,...
-    'CVratio',[0.8 0.2],'Nrun',1000,'PCA_cut',0,'feat_norm',1,'ens',1);
+    'Nfold',5,'Nrun',1000,'PCA_cut',0,'feat_norm',1,'ens',1);
 
 save MRIMEG_MagVar acc2
 tbl.VAR_of_MAG = [mean(mean(acc2(:,2:end,:),3))' std(mean(acc2(:,2:end,:),3))'] % table 2 of main paper
