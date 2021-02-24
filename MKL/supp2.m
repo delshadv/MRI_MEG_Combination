@@ -1,5 +1,5 @@
 %% Supplementary results 2
-% Combining MEG and MRI using late combination to classify MCI vs Control
+% Early/Intermediate and late combinations of MRI and MEG to classify MCI vs Control
 % (BioFIND dataset)
 %
 % This script produces supplementary results after the noise simulations
