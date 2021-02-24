@@ -154,9 +154,11 @@ elseif nargin==5
     end
     p
     
+    try
     linkaxes([ax{:}],'x')
     linkaxes([ax{:}],'y')
-    
+    catch
+    end
     
     %% now any contrasts...
     a = zeros(size(Acc2,1),numel(titles)); % preallocate
@@ -185,8 +187,11 @@ elseif nargin==5
         ylabel(sprintf([y_label{k} num2str(2)]),'Rotation',0,...
             'fontweight','bold','fontsize',16);
         ytickangle(45);
-        yticks([0 size(Acc,1)/5])
-        yticklabels({'0',sprintf(num2str(size(Acc,1)/5))})
+        try
+            yticks([0 size(Acc,1)/5])
+            yticklabels({'0',sprintf(num2str(size(Acc,1)/5))})
+        catch
+        end
         title(pos_titles{k})
         axi = gca;
         axi.FontSize = 12;
