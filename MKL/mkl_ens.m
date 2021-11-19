@@ -1,4 +1,8 @@
 function [acc1,acc2] = mkl_ens(V,y,varargin)
+
+# This is an old function, please use mkl_ens_n instead. This function only works
+# when there is a pair of fixed hyper-parameters for every modality.
+
 % [acc1,acc2] = mkl_ens(V,labels,machine,hyper1,hyper2,T,Nfold,Nrun,PCA_cut,norm)
 % Multi Kernel Learning for Binary Classification 
 %
