@@ -446,3 +446,20 @@ sgtitle('MEG (MAG VAR) MRI Combinations')
 sgt.FontSize = 20;
 
 tbl
+
+%% LOO vs 5-Fold cv for MRI
+
+MRI = csvread('derived/ROIdata.csv');
+labels = csvread('derived/labels.csv');
+
+rng(1)
+cvp = cvpartition(y,'LeaveOut');
+opt = struct("CVPartition",cvp,"ShowPlots",false);
+MRImodel = fitcknn(MRI,labels,"NumNeighbors",13,'DistanceWeight', 'squaredinverse','Distance', 'correlation',"CVPartition",cvp);
+1-kfoldLoss(MRImodel)
+
+rng(1)
+cvp = cvpartition(y,'KFold',5);
+opt = struct("CVPartition",cvp,"ShowPlots",false);
+MRImodel = fitcknn(MRI,labels,"NumNeighbors",13,'DistanceWeight', 'squaredinverse','Distance', 'correlation',"CVPartition",cvp);
+1-kfoldLoss(MRImodel)
