@@ -1,5 +1,5 @@
-function [acc1,acc2] = mkl_ens(V,y,varargin)
-% [acc1,acc2] = mkl_ens(V,labels,machine,hyper1,hyper2,T,Nfold,Nrun,PCA_cut,norm)
+function [acc1,acc2] = mkl_ens_n(V,y,varargin)
+% [acc1,acc2] = mkl_ens(V,labels,machine,hyperI,hyperL,hyperS,T,Nfold,Nrun,PCA_cut,norm)
 % Multi Kernel Learning for Binary Classification
 %
 % ens = flag for whether to do second stage of late combination of kernels
@@ -15,12 +15,13 @@ function [acc1,acc2] = mkl_ens(V,y,varargin)
 % combination of them)
 % =================================================================================================================
 % Optional args
-% 'machine' : machine type, a string array ("pronto" for simpleMKL or
-% "easy" for easyMKL ), default: "easy"
+% 'machine' : machine type, a string array ("kernel" for easyMKL, "forest"  for random forest,
+% deepNet for Neural Networks) default: "kernel"
 
-% 'Hyper1' : MKL lambda hyperparameter - penalty or regularization term, default: 0.1 for feature combination
+% 'HyperI' : MKL lambda hyperparameter - penalty or regularization term, feature combination
 
-% 'Hyper2' : MKL lambda hyperparameter - penalty or regularization term, default: 1 for decision combination
+% 'HyperL' : MKL lambda hyperparameter - penalty or regularization term, decision combination
+% 'HyperS' : MKL lambda hyperparameter - penalty or regularization term, feature combination of single kernel
 
 % 'T' : set threshold for feature selection based on MATLAB's rankfeature
 %  function, default : None
@@ -34,7 +35,7 @@ function [acc1,acc2] = mkl_ens(V,y,varargin)
 
 % 'norm' : 1 when normalization is needed, default : 1
 % =================================================================================================================
-% Example : mciConAccuracy = mkl_class(V,y,'machine','easy','PCA_run',95,'Nrun',10)
+% Example : mciConAccuracy = mkl_class_n(V,y,'machine','kernel','PCA_run',95,'Nrun',10)
 % =================================================================================================================
 % classification functions were taken from the EasyMKL MATLAB implementation by Okba Bekhelifi.
 % References:
