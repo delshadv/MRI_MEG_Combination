@@ -1,4 +1,4 @@
-%% Supplementary results 1
+%% Supplementary results 1 (S1)
 % Late Combination shows that MEG adds to MRI in classifying MCI versus Controls
 % (BioFIND dataset)
 %
@@ -94,6 +94,3 @@ sgtitle(sprintf('Late, Nf = %d', Nnf)) % supp fig1 - right panel
    
 [f3] = plot_results([],[],titles,[-eye(5) eye(5)],[accuracy1 accuracy2]) 
 sgtitle(sprintf('Late - Intermediate'))  % supp fig2 - right panel
-
-
-
