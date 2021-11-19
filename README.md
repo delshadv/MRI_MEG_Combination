@@ -1,8 +1,8 @@
 # MRI_MEG_Combination
 Combining MEG and MRI  to classify MCI
 
-This repository contains all MATLAB codes including pre-processing, feature extraction and machine learning steps to reproduce results of paper ().
-The dataset used for this project is "BioFIND"; the largest MEG data to study dementia which is freely available from DPUK (). For more info about data please see ()
+This repository contains all MATLAB codes including pre-processing, feature extraction and machine learning steps to reproduce results of paper (Late Combination shows that MEG adds to MRI in classifying MCI versus Controls).
+The dataset used for this project is "BioFIND"; the largest MEG data to study dementia which is freely available from DPUK (https://portal.dementiasplatform.uk/Apply). For more info about data please see (https://www.medrxiv.org/content/10.1101/2021.05.19.21257330v1)
 
 It is necessary that you download and set up OSL toolbox from (https://ohba-analysis.github.io/osl-docs/) which consequently includes SPM toolbox (https://www.fil.ion.ucl.ac.uk/spm/). Depending on how you download OSL, you need to rename the OSL's root directory (after decompression) to "osl" and put it in your "current directory". This should be a folder called osl with at least the following contents:
 
