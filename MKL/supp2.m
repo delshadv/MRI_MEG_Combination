@@ -1,10 +1,10 @@
 %% Supplementary results 2
-% Early/Intermediate and late combinations of MRI and MEG to classify MCI vs Control
+% Sections S2-S7 of Supplementaru materials 
+% 
+% This script produces supplementary results after the noise simulations
+% Paper "Late Combination shows that MEG adds to MRI in classifying MCI versus Controls"
 % (BioFIND dataset)
 %
-% This script produces supplementary results after the noise simulations
-% paper ""
-
 % Henson R.N 2020, Vaghari D 2020
 
 %% Define necessary paths
