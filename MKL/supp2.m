@@ -508,10 +508,6 @@ f14 = plot_results(1,titles,acc2,pos_titles,c);
 sgtitle('MEG (GRD COV) MRI Combinations, Converter')
 sgt.FontSize = 20;
 
-% 0.8230    0.7450    0.6690    0.5800    0.5180    0.5760
-% 3.0493    2.6783    1.5189    0.7741    0.3552    0.8665
-% 68.7119   71.7612   71.3902   70.2308   69.4860   69.0671   69.5784 Mean
-% 4.9984    4.9637    4.8482    5.0413    5.1183    4.8461    4.8522  Std
 %% Converters vs Non-Converters (MAG-COV)
 
 clear
@@ -599,10 +595,6 @@ f15 = plot_results(1,titles,acc2,pos_titles,c);
 sgtitle('MEG (MAG COV) MRI Combinations, Converter')
 sgt.FontSize = 20;
 
-% 0.8220    0.7490    0.6880    0.6420    0.4630    0.6710
-% 2.1770    2.4781    1.1775    0.7142   -0.3252    1.4219
-% 68.7713   70.9484   71.2495   69.9488   69.4855   68.4461   70.1933    Mean
-% 4.7536    4.7805    4.6398    4.8695    4.9297    4.7451    4.5804     Std
 %% Converters vs Non-Converters (GRD-VAR)
 
 clear
@@ -690,11 +682,6 @@ f16 = plot_results(1,titles,acc2,pos_titles,c);
 sgtitle('MEG (GRD VAR) MRI Combinations, Converter')
 sgt.FontSize = 20;
 
-
-% 0.6250    0.6200    0.6540    0.5940    0.6510    0.6500
-% 0.9097    0.8089    0.9547    0.6999    1.1464    1.5510
-% 68.7499   69.6596   69.5588   69.7046   69.4498   69.8963   70.3009    Mean
-% 5.0095    4.9670    4.9403    5.0873    5.0294    4.9038    5.0538     Std
 %% Converters vs Non-Converters (MAG-VAR)
 
 clear
