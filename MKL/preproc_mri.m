@@ -124,4 +124,47 @@ ROIdata(:,111:end) = [];
 
 save(fullfile(bwd,'MKL','ROIdata'),'ROIdata')
 
+%% Calculate Voxel data
+
+MRI = [];
+
+% Define participant variables
+participants = spm_load(fullfile(wd,'participants-imputed.tsv'));
+mri_num      = grp2idx(participants.sImaging);
+
+% Remove noisy-MRIs and non-MRI subjects
+mri_num([23 197]) = 2;
+
+parfor sub = 1:nsub
+    
+    Y=[];
+    try
+        
+    infile = fullfile(processed_pth,(sprintf('swc1sub-Sub%04d_ses-meg1_T1w.nii',sub)));
+    V = spm_vol(infile);   
+    Y = spm_read_vols(V);
+    Y = reshape(Y,1,[]);
+    %Y(find(Y==0))=[];
+    MRI(sub,:) = Y(:);
+    catch
+        warning('No MRI')
+    end
+
+end
+
+MRI = [MRI;zeros(1,size(MRI,2))];
+
+MRI(mri_num==2,:) = []; % MRI
+MRI( :, ~any(MRI,1) ) = [];  %columns
+
+a = [];
+for ii = 1:size(MRI,2)
+    
+    a(:,ii) = nnz(MRI(:, ii));
+    
+end
+
+histogram(a) % to find a Th
+
+MRI(:,a<307) = [];
 
