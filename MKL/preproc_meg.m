@@ -139,7 +139,7 @@ end
 
 parfor sub = 1:nsub
     
-    infile = fullfile(processed_pth,subdir{sub},'effdspmeeg');
+    infile = fullfile(processed_pth,subdir{sub},'ffdspmeeg');
     D = spm_eeg_load(infile);
     
     EpochLength = 2 * D.fsample; % 2s in samples
