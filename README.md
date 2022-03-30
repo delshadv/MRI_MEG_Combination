@@ -1,8 +1,10 @@
 # MRI_MEG_Combination
 Combining MEG and MRI  to classify MCI
 
-This repository contains all MATLAB codes including pre-processing, feature extraction and machine learning steps to reproduce results of paper (Late Combination shows that MEG adds to MRI in classifying MCI versus Controls).
+This repository contains MATLAB codes including pre-processing, feature extraction and machine learning steps to reproduce results of paper (Late Combination shows that MEG adds to MRI in classifying MCI versus Controls published on Neuroimage : https://www.sciencedirect.com/science/article/pii/S1053811922001835?via%3Dihub).
 The dataset used for this project is "BioFIND"; the largest MEG data to study dementia which is freely available from DPUK (https://portal.dementiasplatform.uk/Apply). For more info about data please see (https://www.medrxiv.org/content/10.1101/2021.05.19.21257330v1)
+
+The codes are also available on DPUK once you applied for. There is no need to download any toolbox through DPUK. However, if you want to analyze data out of DPUK portal please follow below:
 
 It is necessary that you download and set up OSL toolbox from (https://ohba-analysis.github.io/osl-docs/) which consequently includes SPM toolbox (https://www.fil.ion.ucl.ac.uk/spm/). Depending on how you download OSL, you need to rename the OSL's root directory (after decompression) to "osl" and put it in your "current directory". This should be a folder called osl with at least the following contents:
 
@@ -45,8 +47,6 @@ This code is for replicating experiment by paper titled "Late Combination shows 
 
 Cite this paper if you are using part of code:
 
-"Late Combination shows that MEG adds to MRI in classifying MCI versus Control?" will be specified later.  
-
-Work in progress
+"Late Combination shows that MEG adds to MRI in classifying MCI versus Control" : https://www.sciencedirect.com/science/article/pii/S1053811922001835?via%3Dihub   
 
 rik.henson@mrc-cbu.cam.ac.uk
